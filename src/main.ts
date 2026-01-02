@@ -39,15 +39,16 @@ events.on("formErrors:change", (errors) => {
 
 buyer.setField("email", "test@test.ru");
 console.log("Данные покупателя после ввода email:", buyer.getData());
-console.log("Валиден ли заказ сейчас?", buyer.validateBuyer());
+console.log("Валиден ли заказ сейчас?", buyer.validateBuyer().isValid);
 
 buyer.setField("payment", "card");
 buyer.setField("address", "ул. Пушкина, дом Колотушкина");
 buyer.setField("phone", "+7 999 000 00 00");
 
+const validation = buyer.validateBuyer();
 console.log(
   "Валиден ли заказ после заполнения всех полей?",
-  buyer.validateBuyer()
+  validation.isValid
 );
 
 // Экземпляр API

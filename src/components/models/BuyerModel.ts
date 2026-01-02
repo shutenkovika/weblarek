@@ -17,8 +17,11 @@ export class BuyerModel implements IBuyer {
   setField(field: keyof IBuyer, value: string): void {
     this[field] = value;
 
+    // Вызываем валидацию
+    const result = this.validateBuyer();
+
     // Проверка валидности
-    this.validateBuyer();
+    this.events.emit("formErrors:change", result.errors);
   }
 
   // Получение всех данных
@@ -41,7 +44,7 @@ export class BuyerModel implements IBuyer {
   }
 
   // Валидация (проверка на пустые поля)
-  validateBuyer(): boolean {
+  validateBuyer(): { errors: FormErrors; isValid: boolean } {
     const errors: FormErrors = {};
 
     if (!this.payment) {
@@ -63,8 +66,8 @@ export class BuyerModel implements IBuyer {
     this.formErrors = errors;
 
     // Сообщение o валидации
-    this.events.emit("formErrors:change", this.formErrors);
+    //this.events.emit("formErrors:change", this.formErrors);
 
-    return Object.keys(errors).length === 0;
+    return { errors, isValid: Object.keys(errors).length === 0 };
   }
 }
