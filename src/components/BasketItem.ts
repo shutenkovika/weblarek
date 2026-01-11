@@ -1,11 +1,11 @@
 import { Card } from "./Card";
 import { ensureElement } from "../utils/utils";
-import { IEvents } from "./base/events";
+import { IEvents } from "./base/Events";
 
 interface IBasketItem {
   id: string;
   title: string;
-  price: number;
+  price: number | null;
   index: number;
 }
 
@@ -29,5 +29,3 @@ export class BasketItem extends Card<IBasketItem> {
 
   set index(value: number) {
     this.setText(this._index, String(value));
-  }
-}

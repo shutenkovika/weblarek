@@ -1,6 +1,6 @@
 import { Card } from "./Card";
 import { ensureElement } from "../utils/utils";
-import { IEvents } from "./base/events";
+import { IEvents } from "./base/Events";
 import { categoryMap } from "../utils/constants";
 
 interface ICatalogItem {
@@ -30,6 +30,5 @@ export class CatalogItem extends Card<ICatalogItem> {
 
   set category(value: string) {
     this.setText(this._category, value);
-    this._category.className = `card__category card__category_${categoryMap[value]}`;
-  }
-}
+    const categoryClass = categoryMap[value as keyof typeof categoryMap];
+    if (categoryCl

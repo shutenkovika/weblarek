@@ -41,7 +41,7 @@ export class BuyerModel implements IBuyer {
     this.email = "";
     this.phone = "";
     this.formErrors = {};
-    this.events.emit("formErrors changed", this.formErrors);
+    this.events.emit("formErrors:changed", this.formErrors);
   }
 
   // Валидация (проверка на пустые поля)

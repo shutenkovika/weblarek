@@ -10,8 +10,8 @@ interface ICard {
 export class Card<T> extends Component<ICard> {
   protected _title: HTMLElement;
   protected _price: HTMLElement;
-  protected _button?: HTMLButtonElement;
-  protected _id: string;
+  protected _button?: HTMLButtonElement | null;
+  protected _id!: string;
 
   constructor(
     protected blockName: string,
@@ -33,6 +33,10 @@ export class Card<T> extends Component<ICard> {
     }
   }
 
+  render(data?: Partial<T & ICard>): HTMLElement {
+    return super.render(data);
+  }
+
   set id(value: string) {
     this._id = value;
   }
@@ -50,9 +54,3 @@ export class Card<T> extends Component<ICard> {
       this.setText(this._price, "Бесценно");
       if (this._button) {
         this.setDisabled(this._button, true);
-      }
-    } else {
-      this.setText(this._price, `${value} синапсов`);
-    }
-  }
-}

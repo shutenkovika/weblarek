@@ -1,6 +1,6 @@
 import { Card } from "./Card";
 import { ensureElement } from "../utils/utils";
-import { IEvents } from "./base/events";
+import { IEvents } from "./base/Events";
 import { categoryMap } from "../utils/constants";
 
 interface IPreviewItem {
@@ -33,7 +33,12 @@ export class PreviewItem extends Card<IPreviewItem> {
 
   set category(value: string) {
     this.setText(this._category, value);
-    this._category.className = `card__category card__category_${categoryMap[value]}`;
+    this._category.className = `card__category`;
+    const categoryClass = categoryMap[value as keyof typeof categoryMap];
+
+    if (categoryClass) {
+      this.toggleClass(this._category, categoryClass, true);
+    }
   }
 
   set description(value: string) {
@@ -48,10 +53,4 @@ export class PreviewItem extends Card<IPreviewItem> {
 
   set buttonDisabled(value: boolean) {
     if (this._button) {
-      this.setDisabled(this._button, value);
-      if (value) {
-        this.setText(this._button, "Недоступно");
-      }
-    }
-  }
-}
+      this.set
