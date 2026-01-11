@@ -42,8 +42,4 @@ export class BasketModel {
     return this._items.length;
   }
 
-  // Проверка наличия в корзине
-  isInBasket(id: string): boolean {
-    return this._items.some((item) => item.id === id);
-  }
-}
+  // Проверка налич

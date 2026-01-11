@@ -31,8 +31,4 @@ export class CatalogModel {
     this.events.emit("preview: changed");
   }
 
-  // Товары для превью
-  getPreview(): IProduct | null {
-    return this._preview;
-  }
-}
+  // Товары дл
