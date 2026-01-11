@@ -13,6 +13,7 @@ export class CatalogModel {
   // Сохранение товаров (массив)
   setItems(items: IProduct[]): void {
     this._items = items;
+    this.events.emit("items: changed");
   }
 
   // Получение товара по id
@@ -27,6 +28,7 @@ export class CatalogModel {
 
   setPreview(item: IProduct): void {
     this._preview = item;
+    this.events.emit("preview: changed");
   }
 
   // Товары для превью

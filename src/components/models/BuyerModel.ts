@@ -41,6 +41,7 @@ export class BuyerModel implements IBuyer {
     this.email = "";
     this.phone = "";
     this.formErrors = {};
+    this.events.emit("formErrors changed", this.formErrors);
   }
 
   // Валидация (проверка на пустые поля)
@@ -66,7 +67,7 @@ export class BuyerModel implements IBuyer {
     this.formErrors = errors;
 
     // Сообщение o валидации
-    //this.events.emit("formErrors:change", this.formErrors);
+    this.events.emit("formErrors:change", this.formErrors);
 
     return { errors, isValid: Object.keys(errors).length === 0 };
   }
