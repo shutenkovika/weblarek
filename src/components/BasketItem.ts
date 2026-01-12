@@ -29,3 +29,5 @@ export class BasketItem extends Card<IBasketItem> {
 
   set index(value: number) {
     this.setText(this._index, String(value));
+  }
+}

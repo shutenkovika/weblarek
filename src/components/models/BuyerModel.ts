@@ -69,4 +69,6 @@ export class BuyerModel implements IBuyer {
     // Сообщение o валидации
     this.events.emit("formErrors:change", this.formErrors);
 
-    return { 
+    return { errors, isValid: Object.keys(errors).length === 0 };
+  }
+}

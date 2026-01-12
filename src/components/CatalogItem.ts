@@ -31,4 +31,8 @@ export class CatalogItem extends Card<ICatalogItem> {
   set category(value: string) {
     this.setText(this._category, value);
     const categoryClass = categoryMap[value as keyof typeof categoryMap];
-    if (categoryCl
+    if (categoryClass) {
+      this.toggleClass(this._category, categoryClass, true);
+    }
+  }
+}

@@ -42,4 +42,6 @@ export class Modal extends Component<IModalData> {
   render(data: IModalData): HTMLElement {
     super.render(data);
     this.open();
-    return this.contai
+    return this.container;
+  }
+}

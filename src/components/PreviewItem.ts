@@ -53,4 +53,10 @@ export class PreviewItem extends Card<IPreviewItem> {
 
   set buttonDisabled(value: boolean) {
     if (this._button) {
-      this.set
+      this.setDisabled(this._button, value);
+      if (value) {
+        this.setText(this._button, "Недоступно");
+      }
+    }
+  }
+}
