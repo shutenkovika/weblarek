@@ -659,3 +659,9 @@ constructor(container: HTMLElement, events: IEvents)
 - Генерируется: при переходе к оформлению заказа из корзины
 - Источник: `Basket`
 - Payload: нет
+
+**modal:open**
+
+- Генерируется: при открытии модального окна
+- Источник: `Modal`
+- Payload: нет

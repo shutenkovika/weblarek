@@ -38,7 +38,6 @@ const api = new LarekApi(CDN_URL, API_URL);
 // Создание компонентов View
 
 // Главная страница
-//const page = new Page(document.body, events);
 
 const header = new Header(ensureElement<HTMLElement>(".header"), events);
 const gallery = new Gallery(ensureElement<HTMLElement>(".gallery"));
@@ -66,11 +65,12 @@ const contactsView = new Contacts(cloneTemplate(contactsTemplate), events);
 events.on("items:changed", () => {
   const items = catalog.getItems();
   gallery.catalog = items.map((item) => {
-    const card = new CatalogItem(cloneTemplate(cardCatalogTemplate), events);
+    const card = new CatalogItem(cloneTemplate(cardCatalogTemplate), {
+      onClick: () => events.emit("card:select", { id: item.id }),
+    });
     return card.render({
-      id: item.id,
       title: item.title,
-      image: CDN_URL + item.image,
+      image: item.image,
       category: item.category,
       price: item.price,
     });
@@ -82,14 +82,16 @@ events.on("preview:changed", () => {
   const item = catalog.getPreview();
 
   if (item) {
-    const card = new PreviewItem(cloneTemplate(cardPreviewTemplate), events);
+    const card = new PreviewItem(cloneTemplate(cardPreviewTemplate), {
+      onClick: () => events.emit("card:toggle", { id: item.id }),
+    });
     const isInBasket = basket.isInBasket(item.id);
 
     modal.render({
       content: card.render({
         id: item.id,
         title: item.title,
-        image: CDN_URL + item.image,
+        image: item.image,
         category: item.category,
         description: item.description,
         price: item.price,
@@ -114,7 +116,9 @@ events.on("basket:changed", () => {
 
   // Обновляем содержимое корзины
   basketView.items = items.map((item, index) => {
-    const card = new BasketItem(cloneTemplate(cardBasketTemplate), events);
+    const card = new BasketItem(cloneTemplate(cardBasketTemplate), {
+      onDelete: () => events.emit("card:select", { id: item.id }),
+    });
     return card.render({
       id: item.id,
       title: item.title,
@@ -195,6 +199,11 @@ events.on("order:open", () => {
 // Изменение полей формы Order
 events.on("order:change", (data: { field: string; value: string }) => {
   buyer.setField(data.field as keyof IBuyer, data.value);
+
+  // Перерисовка формы после изменения payment
+  if (data.field === "payment") {
+    orderView.payment = data.value;
+  }
 });
 
 // Отправка формы Order (переход к Contacts)

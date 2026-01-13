@@ -1,6 +1,6 @@
 import { Card } from "./Card";
 import { ensureElement } from "../utils/utils";
-import { IEvents } from "./base/Events";
+//import { IEvents } from "./base/Events";
 import { categoryMap } from "../utils/constants";
 
 interface ICatalogItem {
@@ -15,10 +15,11 @@ export class CatalogItem extends Card<ICatalogItem> {
   protected _image: HTMLImageElement;
   protected _category: HTMLElement;
 
-  constructor(container: HTMLElement, protected events: IEvents) {
-    super("card", container, {
-      onClick: () => events.emit("card:select", { id: this._id }),
-    });
+  constructor(
+    container: HTMLElement,
+    actions?: { onClick: (event: MouseEvent) => void }
+  ) {
+    super("card", container, actions);
 
     this._image = ensureElement<HTMLImageElement>(".card__image", container);
     this._category = ensureElement<HTMLElement>(".card__category", container);

@@ -11,7 +11,6 @@ export class Card<T> extends Component<ICard> {
   protected _title: HTMLElement;
   protected _price: HTMLElement;
   protected _button?: HTMLButtonElement | null;
-  protected _id!: string;
 
   constructor(
     protected blockName: string,
@@ -35,14 +34,6 @@ export class Card<T> extends Component<ICard> {
 
   render(data?: Partial<T & ICard>): HTMLElement {
     return super.render(data);
-  }
-
-  set id(value: string) {
-    this._id = value;
-  }
-
-  get id(): string {
-    return this._id;
   }
 
   set title(value: string) {
